@@ -96,7 +96,72 @@ body {
   color: var(--color-text);
   background:
     radial-gradient(circle at 0 0, color-mix(in oklab, var(--color-rose) 35%, transparent), transparent 32rem),
+    radial-gradient(circle at 100% 22%, color-mix(in oklab, var(--color-rose) 26%, transparent), transparent 30rem),
+    radial-gradient(circle at 8% 64%, color-mix(in oklab, var(--color-sage) 24%, transparent), transparent 34rem),
+    radial-gradient(circle at 92% 88%, color-mix(in oklab, var(--color-rose) 22%, transparent), transparent 32rem),
     linear-gradient(135deg, var(--color-bg), var(--color-surface) 62%, var(--color-primary-soft));
+  background-attachment: fixed;
+}
+
+#main {
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.bloom-decor {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bloom-decor__sprig {
+  position: absolute;
+  width: clamp(140px, 16vw, 240px);
+  height: auto;
+  background: none;
+  opacity: 0.5;
+  filter: saturate(0.92);
+}
+
+.bloom-decor__sprig--tl {
+  top: -14px;
+  left: -18px;
+  transform: rotate(186deg);
+}
+
+.bloom-decor__sprig--tr {
+  top: -10px;
+  right: -24px;
+  transform: scaleX(-1) rotate(190deg);
+}
+
+.bloom-decor__sprig--bl {
+  bottom: -20px;
+  left: -26px;
+  transform: scaleX(-1) rotate(4deg);
+}
+
+.bloom-decor__sprig--br {
+  bottom: -16px;
+  right: -20px;
+  transform: rotate(2deg);
+}
+
+@media (max-width: 720px) {
+  .bloom-decor__sprig--tr,
+  .bloom-decor__sprig--bl {
+    display: none;
+  }
+  .bloom-decor__sprig {
+    opacity: 0.38;
+  }
 }
 
 img,
@@ -467,7 +532,7 @@ li {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) minmax(250px, 0.48fr);
   gap: clamp(var(--space-5), 4vw, var(--space-10));
-  align-items: center;
+  align-items: start;
   padding: clamp(var(--space-6), 5vw, var(--space-12));
   border: 1px solid color-mix(in oklab, var(--color-rose-strong) 24%, var(--color-border));
   border-radius: var(--radius-xl);
@@ -595,7 +660,7 @@ li {
 }
 
 .photo-grid__large {
-  grid-row: span 2;
+  grid-row: span 3;
 }
 
 .photo-grid img {
@@ -612,8 +677,8 @@ li {
 
 .photo-caption {
   display: flex;
-  align-items: end;
-  padding: var(--space-6);
+  align-items: center;
+  padding: clamp(var(--space-6), 3vw, var(--space-8));
   color: var(--color-surface);
   background: var(--color-primary);
 }
@@ -841,12 +906,16 @@ li {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--space-6);
-  align-items: end;
+  align-items: center;
   min-height: 230px;
   padding: clamp(var(--space-6), 4vw, var(--space-8));
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   background: var(--color-surface);
+}
+
+.price-card > div {
+  align-self: start;
 }
 
 .price-card--accent {
@@ -873,6 +942,109 @@ li {
 .price-note {
   margin-top: var(--space-5);
   color: var(--color-text-muted);
+}
+
+.section--start {
+  padding-bottom: clamp(var(--space-8), 6vw, var(--space-16));
+}
+
+.start-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  align-items: stretch;
+  list-style: none;
+  counter-reset: start-step;
+}
+
+.start-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: clamp(var(--space-5), 3vw, var(--space-8));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: color-mix(in oklab, var(--color-surface) 84%, transparent);
+  box-shadow: 0 12px 38px rgb(var(--color-shadow) / 0.06);
+}
+
+.start-step:nth-child(2) {
+  background:
+    linear-gradient(145deg, color-mix(in oklab, var(--color-primary-soft) 58%, transparent), transparent 70%),
+    var(--color-surface);
+}
+
+.start-step:nth-child(3) {
+  background:
+    linear-gradient(145deg, color-mix(in oklab, var(--color-rose) 32%, transparent), transparent 72%),
+    var(--color-surface);
+}
+
+.start-step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  top: 50%;
+  right: calc(var(--space-5) / -2 - 0.55rem);
+  transform: translateY(-50%);
+  z-index: 1;
+  color: var(--color-primary);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.start-step__index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.start-step h3 {
+  font-size: var(--text-lg);
+}
+
+.start-step p {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.start-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+  padding: clamp(var(--space-5), 4vw, var(--space-8));
+  border: 1px solid color-mix(in oklab, var(--color-primary) 22%, var(--color-border));
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in oklab, var(--color-rose) 30%, transparent), transparent 16rem),
+    color-mix(in oklab, var(--color-primary-soft) 50%, var(--color-surface));
+}
+
+.start-cta p {
+  max-width: 40ch;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+.start-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .section--contact {
@@ -1030,6 +1202,23 @@ li {
 
   .video-card--raised {
     margin-top: 0;
+  }
+
+  .start-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .start-step:not(:last-child)::after {
+    content: '↓';
+    top: auto;
+    right: 50%;
+    bottom: calc(var(--space-5) / -2 - 0.55rem);
+    transform: translateX(50%);
+  }
+
+  .start-cta {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -1204,4 +1393,110 @@ li {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+.contact-links a span {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.contact-links a strong {
+  flex: 0 0 auto;
+  margin-left: auto;
+  text-align: right;
+}
+
+.contact-links a.contact-link--dzen {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: var(--space-4) !important;
+}
+
+.contact-links a.contact-link--dzen span {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.contact-links a.contact-link--dzen strong {
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .contact-links a.contact-link--dzen {
+    grid-template-columns: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .contact-links a.contact-link--dzen strong {
+    margin-left: auto;
+    text-align: right !important;
+  }
+}
+
+
+.contact-form-card {
+  margin-top: var(--space-8);
+  padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in oklab, var(--color-surface) 88%, transparent);
+  box-shadow: 0 12px 32px rgb(var(--color-shadow) / 0.08);
+}
+
+.contact-form-intro {
+  margin-bottom: var(--space-5);
+  color: var(--color-text-muted);
+}
+
+.contact-form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.contact-form label {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.contact-form label span {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: color-mix(in oklab, var(--color-surface) 96%, transparent);
+  color: var(--color-text);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 7.5rem;
+}
+
+.contact-form-consent {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+}
+
+.contact-form-consent input {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.25rem;
+}
+
+.contact-form-button {
+  justify-self: start;
 }
